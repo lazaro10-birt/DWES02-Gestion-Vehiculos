@@ -9,7 +9,7 @@ use App\Models\Moto; // llamamos a la clase Moto y la ubicamos en el namespace A
 
 class VehicleController {
     
-    public function store($vehiculoData): ?Vehiculo{//Con esta funcion guardaremos un vehiculo en la base de datos, si no se puede guardar devolvemos null
+    public function store($vehiculoData): array{//Con esta funcion guardaremos un vehiculo en la base de datos, si no se puede guardar devolvemos null
 
         $vehiculos = $this->leerVehiculos(); //Cargamos los archivos original
         
@@ -35,12 +35,12 @@ class VehicleController {
         );
 
     } else {
-        return null;
+        return $vehiculos;
     }
 
         $vehiculos[] = $vehiculo;//Añadimos el nuevo vehiculo al array
 
-        return $vehiculo; //Devolvemos el vehiculo creado
+        return $vehiculos; //Devolvemos el vehiculo creado
     }
 
 
@@ -52,7 +52,7 @@ class VehicleController {
         $vehiculos = $this-> leerVehiculos(); //llamamos a la funcion leerVehiculos para obtener un array de objetos Vehiculo
         
         foreach($vehiculos as $vehiculo){ //Vamos a recorrer y examinar cada objeto Vehiculo del array de vehiculos
-            if($vehiculo->getId() == (int)$id){ //Comparamos el ID que nos pasan por parametro con el ID de cada objeto Vehiculo, si coincide devolvemos el objeto Vehiculo
+            if($vehiculo->getId() === (int)$id){ //Comparamos el ID que nos pasan por parametro con el ID de cada objeto Vehiculo, si coincide devolvemos el objeto Vehiculo
                 return $vehiculo; //devolvemos el objeto Vehiculo que coincide con el ID
             }
         }
